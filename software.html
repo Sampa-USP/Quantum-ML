@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Notebooks Tree — Quantum-ML — Software</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="./css/paleta_cores.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/nav_bar.css" />
+    <link rel="stylesheet" href="./css/pages.css" />
+    <link rel="stylesheet" href="./css/software.css" />
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="wrap">
+            <div class="brand"><a href="./index.html">Homepage</a></div>
+            <nav class="nav">
+                <a href="./publications.html">Publications</a>
+                <a href="./research.html">Research</a>
+                <a href="./software.html">Software</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-wide">
+        <h2>Software</h2>
+        <div class="layout">
+            <aside class="sidebar">
+                <input id="q" class="search" placeholder="Filter notebooks..." />
+                <ul id="tree" class="tree"></ul>
+            </aside>
+            <section class="viewer">
+                <iframe id="viewer" src=""></iframe>
+            </section>
+        </div>
+    </main>
+
+    <!-- injeta a árvore apenas nesta página -->
+    <script>window.TREE_DATA = {"type": "dir", "name": "Quantum-ML", "path": "", "children": [{"type": "dir", "name": "Linear-Regression", "path": "Linear-Regression", "children": [{"type": "file", "name": "Regressao_linear.ipynb", "path": "Linear-Regression/Regressao_linear.ipynb", "nb_html": "Linear-Regression/Regressao_linear.html"}]}]};</script>
+    <script src="./js/app.js"></script>
+</body>
+
+</html>
