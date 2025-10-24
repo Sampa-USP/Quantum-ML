@@ -5,9 +5,6 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-permissions:
-  contents: write   # <— IMPORTANTE para poder criar/atualizar a branch gh-pages
-
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
@@ -15,8 +12,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -26,12 +21,8 @@ jobs:
       - name: Install nbconvert + deps
         run: |
           python -m pip install --upgrade pip
-          # use requirements.txt se existir; senão, instala o mínimo
-          if [ -f requirements.txt ]; then
-            pip install -r requirements.txt
-          else
-            pip install nbconvert jupyter jupyterlab_pygments pygments
-          fi
+          pip install nbconvert jupyter jupyterlab_pygments pygments
+          # instale também as libs usadas pelos seus notebooks se precisar
 
       - name: Build static site
         run: |
@@ -41,18 +32,9 @@ jobs:
             --template .scripts/template \
             --execute false
 
-      - name: Deploy to gh-pages branch (create if missing)
+      - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./site
           publish_branch: gh-pages
-          # cria a branch como orphan (histórico limpo) se não existir,
-          # e também evita conflitos de non-fast-forward:
-          force_orphan: true
-          # (opcional) personaliza autor/commit:
-          user_name: github-actions[bot]
-          user_email: 41898282+github-actions[bot]@users.noreply.github.com
-          commit_message: "Deploy: ${{ github.sha }}"
-          # (opcional) CNAME:
-          # cname: seu-dominio.custom.com
